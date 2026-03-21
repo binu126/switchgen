@@ -50,6 +50,3 @@ This project currently uses a **public MQTT broker**. For production or private 
 
   * Change the topic prefix to something unique (e.g., `yourname123/home/control/`).
   * Switch to a private broker with username/password authentication.
-```
-
-Does this cover everything you wanted to include, or should we add a section for "Future Improvements" (like adding sensors)?
