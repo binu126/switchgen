@@ -1,0 +1,191 @@
+/* ===== RESET & ROOT VARIABLES ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-dark: #0f172a;
+    --card-bg: #1e293b;
+    --border-color: #334155;
+    --accent-primary: #10b981;
+    --accent-danger: #f43f5e;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --font-stack: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+body {
+    font-family: var(--font-stack);
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    min-height: 100vh;
+    padding: 40px 20px;
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+.main-container {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.page-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+/* ===== CONNECTION STATUS ===== */
+.connection-status {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.connected { background: rgba(16, 185, 129, 0.1); color: var(--accent-primary); border: 1px solid rgba(16, 185, 129, 0.2); }
+.status-dot { width: 8px; height: 8px; background: currentColor; border-radius: 50%; box-shadow: 0 0 8px currentColor; }
+
+/* ===== GRID ===== */
+.device-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+/* ===== DEVICE CARD - FIXED ===== */
+.device-card {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    min-height: 320px; /* Ensures all cards start with a similar height */
+}
+
+.device-card:hover {
+    border-color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.card-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--text-main);
+}
+
+/* ===== BUTTONS ===== */
+.control-buttons {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.btn-modern {
+    flex: 1;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.btn-success-modern { background: var(--accent-primary); color: #064e3b; }
+.btn-danger-modern { background: #334155; color: var(--text-main); }
+.btn-schedule { background: transparent; border: 1px solid var(--border-color); color: var(--text-muted); width: 100%; margin-top: 10px; }
+
+.btn-modern:hover { filter: brightness(1.1); }
+.btn-schedule:hover { border-color: var(--accent-primary); color: var(--accent-primary); background: rgba(16, 185, 129, 0.05); }
+
+/* ===== TIMER SECTION - FIXED ===== */
+.timer-container {
+    margin-top: auto; /* Pushes the timer to the very bottom */
+    padding-top: 24px;
+    position: relative;
+    width: 100%;
+}
+
+/* This pseudo-element creates the line safely inside the card padding */
+.timer-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--border-color);
+}
+
+.timer-inputs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.timer-input {
+    flex: 1;
+    min-width: 0; /* Prevents input boxes from pushing card width */
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid var(--border-color);
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.timer-input:focus { outline: none; border-color: var(--accent-primary); }
+
+/* ===== NOTIFICATIONS & COUNTDOWN ===== */
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 24px;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    transform: translateY(150%);
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1000;
+}
+.notification.show { transform: translateY(0); }
+.success { background: var(--accent-primary); color: #064e3b; }
+.error { background: var(--accent-danger); }
+
+.countdown-display {
+    font-size: 12px;
+    color: var(--accent-primary);
+    margin-top: 12px;
+    font-family: monospace;
+    display: none;
+    text-align: center;
+}
+.countdown-display.active { display: block; }
