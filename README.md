@@ -1,4 +1,4 @@
-# ESP32 Smart Switch Hub (Full-Stack)
+# ESP32 Smart Switch Hub
 
 A professional, full-stack IoT control system featuring a responsive Web Dashboard, a Node.js Middleware Server, and ESP32 integration via MQTT.
 
