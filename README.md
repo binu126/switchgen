@@ -16,6 +16,14 @@ Unlike simple client-side controllers, this system uses a **Node.js backend** to
 * **Modern "Slate & Emerald" UI:** A dark-mode dashboard built for high visibility and clean aesthetics.
 * **MQTT Middleware:** Centralized command logging on the server for easier debugging.
 
+## ⚠️ Important Note: Communication Model
+
+This system currently operates on a **One-Way (Uni-directional)** control flow.
+
+* **No Real-time Status:** The dashboard sends commands *to* the devices but does not currently receive "Heartbeat" or "State" updates *from* them. 
+* **State Assumption:** The UI reflects the last command sent by the server, rather than the confirmed physical state of the hardware. 
+* **Synchronization:** If a device loses power or is toggled via a physical manual switch, the dashboard will not auto-update to reflect that change.
+
 ## 🛠️ Tech Stack
 
 * **Frontend:** HTML5, CSS3 (Custom Properties), JavaScript (ES6 Fetch API).
