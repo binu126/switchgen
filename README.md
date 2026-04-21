@@ -25,10 +25,3 @@ This system currently operates on a **One-Way (Uni-directional)** control flow.
 * **Backend:** Node.js, Express.js.
 * **Communication:** MQTT.js (Middleware to Broker).
 * **IoT Hardware:** ESP32 / ESP8226 (Subscribed to `home/control/#`).
-
-```json
-{
-  "device": "bulb",
-  "state": "ON",
-  "duration": 3600 
-}
