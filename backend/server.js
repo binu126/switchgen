@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import client from "./mqttClient.js";
+import { client, isConnected } from "./mqttClient.js";
 
 const app = express();
 
@@ -15,6 +15,10 @@ app.post("/api/device", (req, res) => {
 
     if (!device || !state) {
         return res.status(400).json({ error: "Missing device or state" });
+    }
+
+    if (!isConnected) {
+        return res.status(503).json({ error: "MQTT broker not connected" });
     }
 
     const topic = `home/control/${device}`;
@@ -37,8 +41,12 @@ app.post("/api/device", (req, res) => {
         console.log(`⏱️ Timer set: ${device} will turn OFF in ${duration} seconds`);
 
         activeTimers[device] = setTimeout(() => {
-            client.publish(topic, "OFF");
-            console.log(`⏰ Timer Expired: OFF → ${topic}`);
+            if (isConnected) {
+                client.publish(topic, "OFF");
+                console.log(`⏰ Timer Expired: OFF → ${topic}`);
+            } else {
+                console.warn(`⏰ Timer Expired but MQTT disconnected: ${topic}`);
+            }
             delete activeTimers[device];
         }, durationMs);
     }
@@ -49,10 +57,14 @@ app.post("/api/device", (req, res) => {
     });
 });
 
+app.get("/api/status", (req, res) => {
+    res.json({ mqtt: isConnected ? "connected" : "disconnected" });
+});
+
 app.get("/", (req, res) => {
     res.send("Backend running 🚀");
 });
 
 app.listen(3000, () => {
     console.log("🔥 Server running on http://localhost:3000");
-});
+});
